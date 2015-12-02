@@ -1,0 +1,122 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".MainActivity">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+    <TextView
+        android:id="@+id/btn_single"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_weight="1"
+        android:background="@drawable/sel_top_ok"
+        android:gravity="center"
+        android:text="单选"
+        android:textColor="@color/white"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/btn_single_with_camera"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="4dp"
+        android:background="@drawable/sel_top_ok"
+        android:gravity="center"
+        android:text="单选带相机"
+        android:textColor="@color/white"
+        android:textSize="18dp" />
+
+</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/btn_multi"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@drawable/sel_top_ok"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="多选"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/btn_multi_with_camera"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="4dp"
+            android:background="@drawable/sel_top_ok"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="多选带相机"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
+
+        </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/btn_crop"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/sel_top_ok"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="单选并裁剪"
+        android:textColor="@color/white"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/btn_custom"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/sel_top_ok"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="自定义主题"
+        android:textColor="@color/white"
+        android:textSize="18dp" />
+
+
+    <!--<ImageView android:id="@+id/iv_show"
+        android:layout_marginTop="40dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@color/oval_light_green"
+        android:src="@drawable/default_img"
+        />-->
+
+    <ImageView android:id="@+id/iv_crop"
+        android:layout_marginTop="10dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:visibility="gone"
+        android:src="@drawable/default_img"/>
+
+    <GridView
+        android:id="@+id/gridview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:horizontalSpacing="2dp"
+        android:verticalSpacing="2dp"
+        android:listSelector="@android:color/transparent"
+        android:stretchMode="columnWidth"
+        android:clipToPadding="false"
+        android:numColumns="3" />
+
+
+</LinearLayout>

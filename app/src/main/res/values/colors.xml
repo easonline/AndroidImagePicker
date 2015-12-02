@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 公共的 -->
+    <color name="tab_main_text_1">#aaa</color>
+    <color name="tab_main_text_2">#74b5f7</color>
+    <color name="tab_top_text_1">#aaa</color>
+    <color name="tab_top_text_2">#000</color>
+    <color name="tab_top2_text_1">#000</color>
+    <color name="tab_top2_text_2">#fff</color>
+
+    <color name="oval_pink">#fe9393</color>
+    <color name="oval_light_yellow">#f4b400</color>
+    <color name="oval_light_blue">#cc427fed</color>
+    <color name="oval_light_green">#67cdb7</color>
+    <color name="oval_purple">#9b73e6</color>
+    <color name="oval_brown">#CCFD8225</color>
+
+    <color name="text_5e">#5e5e5e</color>
+
+    <color name="theme_body">#cc22292c</color>
+    <color name="theme_body_dark">#cc20272a</color>
+
+
+    <color name="white">#ffffff</color>
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+</resources>

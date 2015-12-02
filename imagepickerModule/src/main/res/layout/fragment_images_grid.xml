@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#111111" >
+
+    <GridView
+        android:id="@+id/gridview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:horizontalSpacing="2dp"
+        android:verticalSpacing="2dp"
+        android:listSelector="@android:color/transparent"
+        android:stretchMode="columnWidth"
+        android:paddingTop="2dp"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:paddingBottom="50dp"
+        android:clipToPadding="false"
+        android:numColumns="3" />
+
+    <RelativeLayout android:id="@+id/footer_panel"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="#fc22292c"
+        >
+
+        <Button
+            android:id="@+id/btn_dir"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_centerVertical="true"
+            android:text="全部图片"
+            android:textSize="16dp"
+            android:textColor="#ffffff"
+            android:gravity="center_vertical"
+            android:drawableRight="@drawable/text_indicator"
+            android:drawablePadding="4dp"
+            android:background="@null"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

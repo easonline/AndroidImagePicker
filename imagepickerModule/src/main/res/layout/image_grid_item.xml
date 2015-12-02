@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.pizidea.imagepicker.widget.SquareLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_thumb"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_img" />
+
+    <FrameLayout android:id="@+id/thumb_check_panel"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentRight="true"
+        >
+
+        <com.pizidea.imagepicker.widget.SuperCheckBox
+            android:id="@+id/iv_thumb_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableRight="@drawable/sel_media_item_checked"
+            android:drawablePadding="0dp"
+            android:paddingTop="10dp"
+            android:paddingRight="6dp"
+            android:paddingLeft="16dp"
+            android:paddingBottom="16dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            />
+
+    </FrameLayout>
+
+
+
+</com.pizidea.imagepicker.widget.SquareLayout>
