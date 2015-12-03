@@ -1,11 +1,11 @@
 # imagePicker
 an imagePicker for android ,with it,you can select single or multiple image,crop it for avatar,take a photo and use it,preview and zoom etc.
 
-![screenshot](static/screenshot1.png)-
-![screenshot](static/screenshot2.png)-
-![screenshot](static/screenshot3.png)-
-![screenshot](static/screenshot4.png)-
-![screenshot](static/screenshot5.png)
+![screenshot](static/Screenshot1.png)-
+![screenshot](static/Screenshot2.png)-
+![screenshot](static/Screenshot3.png)-
+![screenshot](static/Screenshot4.png)-
+![screenshot](static/Screenshot5.png)
 
 ## Features
  * choosing single or multi image with preview
