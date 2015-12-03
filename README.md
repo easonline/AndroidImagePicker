@@ -20,6 +20,7 @@ this referenced two demos to you ,it is very simple.You could also use one of th
 ### Gradle
 ```groovy
 dependencies {
+    compile project(':imagepickerModule')
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'  //optional
     compile 'com.github.bumptech.glide:glide:3.6.1'   //optional
     compile 'com.squareup.picasso:picasso:2.4.0'   //optional
