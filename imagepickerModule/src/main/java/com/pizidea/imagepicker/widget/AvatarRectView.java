@@ -1,3 +1,21 @@
+/*
+ *
+ *  * Copyright (C) 2015 Eason.Lai (easonline7@gmail.com)
+ *  *
+ *  * Licensed under the Apache License, Version 2.0 (the "License");
+ *  * you may not use this file except in compliance with the License.
+ *  * You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  * Unless required by applicable law or agreed to in writing, software
+ *  * distributed under the License is distributed on an "AS IS" BASIS,
+ *  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  * See the License for the specific language governing permissions and
+ *  * limitations under the License.
+ *
+ */
+
 package com.pizidea.imagepicker.widget;
 
 import android.content.Context;
@@ -12,12 +30,10 @@ import android.view.View;
 
 import com.pizidea.imagepicker.R;
 
-
 /**
  * <b>image crop mask View for avatar</b><br/>
- * @author laiyifeng77@gmail.com
- * @date 2015/11/10
- * @version 1.0.0
+ * Created by Eason.Lai on 2015/11/1 10:42 <br/>
+ * contact：easonline7@gmail.com <br/>
  */
 public class AvatarRectView extends View {
 	private static final String TAG = AvatarRectView.class.getSimpleName();

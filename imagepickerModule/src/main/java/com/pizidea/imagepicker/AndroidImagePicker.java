@@ -1,3 +1,21 @@
+/*
+ *
+ *  * Copyright (C) 2015 Eason.Lai (easonline7@gmail.com)
+ *  *
+ *  * Licensed under the Apache License, Version 2.0 (the "License");
+ *  * you may not use this file except in compliance with the License.
+ *  * You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  * Unless required by applicable law or agreed to in writing, software
+ *  * distributed under the License is distributed on an "AS IS" BASIS,
+ *  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  * See the License for the specific language governing permissions and
+ *  * limitations under the License.
+ *
+ */
+
 package com.pizidea.imagepicker;
 
 import android.app.Activity;
@@ -27,7 +45,8 @@ import java.util.Set;
 
 /**
  * <b>The main Entrance of this lib</b><br/>
- * Created by yflai on 2015/11/10.
+ * Created by Eason.Lai on 2015/11/1 10:42 <br/>
+ * contact：easonline7@gmail.com <br/>
  */
 public class AndroidImagePicker {
     public static final String TAG = AndroidImagePicker.class.getSimpleName();
@@ -322,37 +341,11 @@ public class AndroidImagePicker {
         return bmp;
     }
 
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "IMG_" + timeStamp + "_";
-        File storageDir;
-        if(Util.isStorageEnable()){
-            storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-            if (!storageDir.exists()) {
-                if (!storageDir.mkdir()) {
-                    throw new IOException();
-                }
-            }
-
-            File image = File.createTempFile(
-                    imageFileName,  /* prefix */
-                    ".jpg",         /* suffix */
-                    storageDir      /* directory */
-            );
-
-            // Save a file: path for use with ACTION_VIEW intents
-            mCurrentPhotoPath = image.getAbsolutePath();
-            Log.i(TAG,"=====camera path:"+mCurrentPhotoPath);
-            return image;
-        }else{
-            Log.i(TAG,"No SDCard");
-        }
-
-        return null;
-    }
-
-
+    /**
+     * create a file to save photo
+     * @param ctx
+     * @return
+     */
     private File createImageSaveFile(Context ctx){
         if(Util.isStorageEnable()){
             // 已挂载
@@ -382,7 +375,7 @@ public class AndroidImagePicker {
 
 
     /**
-     * 拍照
+     * take picture
      */
     public void takePicture(Context ctx,int requestCode) throws IOException {
 
@@ -404,7 +397,7 @@ public class AndroidImagePicker {
     }
 
     /**
-     * 拍照
+     * take picture
      */
     public void takePicture(Fragment fragment, int requestCode) throws IOException {
 
@@ -426,6 +419,11 @@ public class AndroidImagePicker {
 
     }
 
+    /**
+     * scan the photo so that the gallery can read it
+     * @param ctx
+     * @param path
+     */
     public static void galleryAddPic(Context ctx,String path) {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         File f = new File(path);

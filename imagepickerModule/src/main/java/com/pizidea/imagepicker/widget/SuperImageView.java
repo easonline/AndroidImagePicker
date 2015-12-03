@@ -1,3 +1,21 @@
+/*
+ *
+ *  * Copyright (C) 2015 Eason.Lai (easonline7@gmail.com)
+ *  *
+ *  * Licensed under the Apache License, Version 2.0 (the "License");
+ *  * you may not use this file except in compliance with the License.
+ *  * You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  * Unless required by applicable law or agreed to in writing, software
+ *  * distributed under the License is distributed on an "AS IS" BASIS,
+ *  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  * See the License for the specific language governing permissions and
+ *  * limitations under the License.
+ *
+ */
+
 package com.pizidea.imagepicker.widget;
 
 import android.content.Context;
@@ -13,6 +31,11 @@ import android.widget.ImageView;
 import com.pizidea.imagepicker.Util;
 import com.pizidea.imagepicker.ui.AvatarCropFragment;
 
+/**
+ * <b>Desc your Class</b><br/>
+ * Created by Eason.Lai on 2015/11/1 10:42 <br/>
+ * contact：easonline7@gmail.com <br/>
+ */
 public class SuperImageView extends ImageView {
 
     static  float MAX_SCALE = 4.0f;
@@ -24,11 +47,11 @@ public class SuperImageView extends ImageView {
     float viewH;
     Matrix matrix = new Matrix();
     Matrix savedMatrix = new Matrix();
-    static final int NONE = 0;// 初始状态
-    static final int DRAG = 1;// 拖动
-    static final int ZOOM = 2;// 缩放
-    static final int ROTATE = 3;// 旋转
-    static final int ZOOM_OR_ROTATE = 4; // 缩放或旋转
+    static final int NONE = 0;// init state
+    static final int DRAG = 1;// drag
+    static final int ZOOM = 2;// zoom
+    static final int ROTATE = 3;// rotate
+    static final int ZOOM_OR_ROTATE = 4; // zoom or rotate
     int mode = NONE;
 
     PointF pA = new PointF();
@@ -202,20 +225,20 @@ public class SuperImageView extends ImageView {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
-            // 主点按下
+            // first point down
             case MotionEvent.ACTION_DOWN:
                 savedMatrix.set(matrix);
                 pA.set(event.getX(), event.getY());
                 pB.set(event.getX(), event.getY());
                 mode = DRAG;
                 break;
-            // 副点按下
+            // second point down
             case MotionEvent.ACTION_POINTER_DOWN:
                 if (event.getActionIndex() > 1)
                     break;
                 dist = spacing(event.getX(0), event.getY(0), event.getX(1),
                         event.getY(1));
-                // 如果连续两点距离大于10，则判定为多点模式
+                //if >10 continuous,make it multi mode
                 if (dist > 10f) {
                     savedMatrix.set(matrix);
                     pA.set(event.getX(0), event.getY(0));
@@ -329,7 +352,7 @@ public class SuperImageView extends ImageView {
     }
 
     /**
-     * 两点的距离
+     * distance of two points
      */
     private float spacing(float x1, float y1, float x2, float y2) {
         float x = x1 - x2;
@@ -344,10 +367,10 @@ public class SuperImageView extends ImageView {
 
         float minScale = Math.max((float) (viewW - leftMargins*2) / (float) rotatedImageW,
                 (float) (viewH - topBottomMargins) / (float) rotatedImageH);
-        if (curScale <= minScale + 0.01) { // 放大
+        if (curScale <= minScale + 0.01) { // zoom
             float toScale = Math.max(minScale, MAX_SCALE) / curScale;
             matrix.postScale(toScale, toScale, x, y);
-        } else { // 缩小
+        } else { // scale
             float toScale = minScale / curScale;
             matrix.postScale(toScale, toScale, x, y);
             fixTranslation();
