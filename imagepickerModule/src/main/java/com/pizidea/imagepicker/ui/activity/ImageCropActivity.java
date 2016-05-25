@@ -16,7 +16,7 @@
  *
  */
 
-package com.pizidea.imagepickerDemo;
+package com.pizidea.imagepicker.ui.activity;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pizidea.imagepicker.AndroidImagePicker;
+import com.pizidea.imagepicker.R;
 import com.pizidea.imagepicker.ui.AvatarCropFragment;
 
 
@@ -67,7 +68,16 @@ public class ImageCropActivity extends FragmentActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+
+        if(v.getId() == R.id.btn_pic_ok){
+            Bitmap bmp = mFragment.getCropBitmap(60*2);
+            finish();
+            AndroidImagePicker.getInstance().notifyImageCropComplete(bmp,0);
+        }else if(v.getId() == R.id.btn_pic_rechoose){
+            finish();
+        }
+
+        /*switch (v.getId()){
             case R.id.btn_pic_rechoose:
                 finish();
                 break;
@@ -76,17 +86,18 @@ public class ImageCropActivity extends FragmentActivity implements View.OnClickL
                 Bitmap bmp = mFragment.getCropBitmap(60*2);
                 finish();
                 AndroidImagePicker.getInstance().notifyImageCropComplete(bmp,0);
-                /*ivShow.setVisibility(View.VISIBLE);
+                *//*ivShow.setVisibility(View.VISIBLE);
                 ivShow.setImageBitmap(bmp);
                 Intent data = new Intent();
                 data.putExtra("bitmap",bmp);
                 setResult(RESULT_OK, data);
-                finish();*/
+                finish();*//*
 
                 break;
             default:
                 break;
-        }
+        }*/
+
     }
 
 

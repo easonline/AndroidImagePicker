@@ -16,7 +16,7 @@
  *
  */
 
-package com.pizidea.imagepickerDemo;
+package com.pizidea.imagepicker.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -29,6 +29,7 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.pizidea.imagepicker.AndroidImagePicker;
+import com.pizidea.imagepicker.R;
 import com.pizidea.imagepicker.bean.ImageItem;
 import com.pizidea.imagepicker.ui.ImagesGridFragment;
 
@@ -121,7 +122,15 @@ public class ImagesGridActivity extends FragmentActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+
+        if(v.getId() == R.id.btn_ok){
+            finish();
+            androidImagePicker.notifyOnImagePickComplete(androidImagePicker.getSelectedImages());
+        }else if(v.getId() == R.id.btn_pic_rechoose){
+            finish();
+        }
+
+       /* switch (v.getId()){
             case R.id.btn_pic_rechoose:
                 finish();
                 break;
@@ -132,7 +141,7 @@ public class ImagesGridActivity extends FragmentActivity implements View.OnClick
                 break;
             default:
                 break;
-        }
+        }*/
 
     }
 

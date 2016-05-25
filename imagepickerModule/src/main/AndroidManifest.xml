@@ -5,6 +5,30 @@
     <application
         android:allowBackup="true"
         android:label="@string/app_name" >
+
+        <activity
+            android:name="com.pizidea.imagepicker.ui.activity.ImageCropActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar"
+            >
+
+        </activity>
+
+        <activity
+            android:name="com.pizidea.imagepicker.ui.activity.ImagePreviewActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar" >
+
+
+        </activity>
+
+        <activity
+            android:name="com.pizidea.imagepicker.ui.activity.ImagesGridActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+
+
     </application>
 
 </manifest>

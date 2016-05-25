@@ -16,7 +16,7 @@
  *
  */
 
-package com.pizidea.imagepickerDemo;
+package com.pizidea.imagepicker.ui.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pizidea.imagepicker.AndroidImagePicker;
+import com.pizidea.imagepicker.R;
 import com.pizidea.imagepicker.bean.ImageItem;
 import com.pizidea.imagepicker.ui.ImagePreviewFragment;
 
@@ -119,7 +120,14 @@ public class ImagePreviewActivity extends FragmentActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        if(v.getId() == R.id.btn_pic_ok){
+            setResult(RESULT_OK);// select complete
+            finish();
+        }else if(v.getId() == R.id.btn_pic_rechoose){
+            finish();
+        }
+
+       /* switch (v.getId()){
             case R.id.btn_pic_rechoose:
                 finish();
                 break;
@@ -129,7 +137,8 @@ public class ImagePreviewActivity extends FragmentActivity implements View.OnCli
                 break;
             default:
                 break;
-        }
+        }*/
+
     }
 
 

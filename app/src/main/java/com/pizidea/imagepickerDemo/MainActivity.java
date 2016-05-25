@@ -40,6 +40,7 @@ import com.pizidea.imagepicker.ImagePresenter;
 import com.pizidea.imagepicker.UilImagePresenter;
 import com.pizidea.imagepicker.Util;
 import com.pizidea.imagepicker.bean.ImageItem;
+import com.pizidea.imagepicker.ui.activity.ImagesGridActivity;
 import com.pizidea.imagepickerDemo2.ShowActivity;
 
 import java.util.List;

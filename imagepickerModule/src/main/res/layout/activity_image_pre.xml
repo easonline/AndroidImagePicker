@@ -1,14 +1,35 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--
+  ~ /*
+  ~  * Copyright (C) 2015 Eason.Lai (easonline7@gmail.com)
+  ~  *
+  ~  * Licensed under the Apache License, Version 2.0 (the "License");
+  ~  * you may not use this file except in compliance with the License.
+  ~  * You may obtain a copy of the License at
+  ~  *
+  ~  *      http://www.apache.org/licenses/LICENSE-2.0
+  ~  *
+  ~  * Unless required by applicable law or agreed to in writing, software
+  ~  * distributed under the License is distributed on an "AS IS" BASIS,
+  ~  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  * See the License for the specific language governing permissions and
+  ~  * limitations under the License.
+  ~  */
+  -->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent" >
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <RelativeLayout
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-
         android:background="#cc22292c"
         android:clickable="true">
 
@@ -22,7 +43,7 @@
             android:paddingLeft="14dp"
             android:paddingRight="14dp"
             android:paddingTop="14dp"
-            android:src="@mipmap/ic_back" />
+            android:src="@drawable/ic_back" />
 
         <View
             android:layout_width="1dp"
@@ -39,7 +60,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@id/btn_backpress"
-            android:text="选择图片"
+            android:text="预览"
             android:textColor="#ffffff"
             android:textSize="16dp" />
 
@@ -61,22 +82,45 @@
             android:textColor="#ffffff"
             android:textSize="14dp" />
 
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
             android:background="#cc22292f" />
 
+
     </RelativeLayout>
 
-
-    <FrameLayout
-        android:id="@+id/container"
+    <RelativeLayout
+        android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/top_bar"
-        />
+        android:layout_height="48dp"
+        android:layout_gravity="bottom"
+        android:background="#cc22292c"
+        android:clickable="true">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#cc22292f" />
+
+        <CheckBox
+            android:id="@+id/btn_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:button="@null"
+            android:drawableLeft="@drawable/sel_media_item_checked"
+            android:drawablePadding="4dp"
+            android:includeFontPadding="true"
+            android:paddingLeft="4dp"
+            android:text="选择"
+            android:textColor="#ffffff" />
 
 
+    </RelativeLayout>
 
-</RelativeLayout>
+</FrameLayout>

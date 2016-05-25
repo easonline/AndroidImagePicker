@@ -458,4 +458,12 @@ public class AndroidImagePicker {
         int MODE_MULTI = 1;
     }
 
+
+
+
+    public void pickSingle(boolean showCamera,OnImagePickCompleteListener l){
+        //
+    }
+
+
 }
