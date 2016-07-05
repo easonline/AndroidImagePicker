@@ -91,7 +91,9 @@ public class ImagesGridActivity extends FragmentActivity implements View.OnClick
                         androidImagePicker.clearSelectedImages();
                         androidImagePicker.addSelectedImageItem(position, androidImagePicker.getImageItemsOfCurrentImageSet().get(position));
                         setResult(RESULT_OK);
+
                         finish();
+                        androidImagePicker.notifyOnImagePickComplete();
                     }
 
                 }
@@ -125,7 +127,7 @@ public class ImagesGridActivity extends FragmentActivity implements View.OnClick
 
         if(v.getId() == R.id.btn_ok){
             finish();
-            androidImagePicker.notifyOnImagePickComplete(androidImagePicker.getSelectedImages());
+            androidImagePicker.notifyOnImagePickComplete();
         }else if(v.getId() == R.id.btn_pic_rechoose){
             finish();
         }

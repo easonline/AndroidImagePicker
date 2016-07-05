@@ -32,6 +32,7 @@ import android.util.Log;
 
 import com.pizidea.imagepicker.bean.ImageItem;
 import com.pizidea.imagepicker.bean.ImageSet;
+import com.pizidea.imagepicker.ui.activity.ImagesGridActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -200,10 +201,11 @@ public class AndroidImagePicker {
             System.gc();
         }
     }
-    public void notifyOnImagePickComplete(List<ImageItem> items){
+    public void notifyOnImagePickComplete(){
         if(mOnImagePickCompleteListener != null){
-            mOnImagePickCompleteListener.onImagePickComplete(items);
-            Log.i(TAG, "=====notify mOnImagePickCompleteListener:selected size=" + items.size());
+            List<ImageItem> list = getSelectedImages();
+            mOnImagePickCompleteListener.onImagePickComplete(list);
+            Log.i(TAG, "=====notify mOnImagePickCompleteListener:selected size=" + list.size());
         }
     }
 
@@ -459,10 +461,35 @@ public class AndroidImagePicker {
     }
 
 
-
-
-    public void pickSingle(boolean showCamera,OnImagePickCompleteListener l){
+    /**
+     * 单选图片
+     * @param act 必须传一个Activity
+     * @param showCamera 是否需要显示拍照按钮
+     * @param l 回调Listener
+     */
+    public void pickSingle(Activity act,boolean showCamera,OnImagePickCompleteListener l){
         //
+        setSelectMode(Select_Mode.MODE_SINGLE);
+        setShouldShowCamera(showCamera);
+        setOnImagePickCompleteListener(l);
+
+        act.startActivity(new Intent(act, ImagesGridActivity.class));
+    }
+
+
+    /**
+     * 多选图片
+     * @param act 必须传一个Activity
+     * @param showCamera 是否需要显示拍照按钮
+     * @param l 回调Listener
+     */
+    public void pickMulti(Activity act,boolean showCamera,OnImagePickCompleteListener l){
+        //
+        setSelectMode(Select_Mode.MODE_MULTI);
+        setShouldShowCamera(showCamera);
+        setOnImagePickCompleteListener(l);
+
+        act.startActivity(new Intent(act, ImagesGridActivity.class));
     }
 
 

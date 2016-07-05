@@ -99,14 +99,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         screenWidth = getWindowManager().getDefaultDisplay().getWidth();
 
-        AndroidImagePicker.getInstance().addOnImageCropCompleteListener(this);
+        //AndroidImagePicker.getInstance().addOnImageCropCompleteListener(this);
 
     }
 
     @Override
     protected void onResume() {
-        AndroidImagePicker.getInstance().setOnPictureTakeCompleteListener(this);//watching Picture taking
-        AndroidImagePicker.getInstance().setOnImagePickCompleteListener(this);
+        //AndroidImagePicker.getInstance().setOnPictureTakeCompleteListener(this);//watching Picture taking
+        //AndroidImagePicker.getInstance().setOnImagePickCompleteListener(this);
         super.onResume();
     }
 
@@ -119,17 +119,39 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         switch (v.getId()){
 
             case R.id.btn_single:
-                AndroidImagePicker.getInstance().setSelectMode(AndroidImagePicker.Select_Mode.MODE_SINGLE);
+                /*AndroidImagePicker.getInstance().setSelectMode(AndroidImagePicker.Select_Mode.MODE_SINGLE);
                 AndroidImagePicker.getInstance().setShouldShowCamera(false);
-                break;
+                break;*/
+                AndroidImagePicker.getInstance().pickSingle(MainActivity.this, true, new AndroidImagePicker.OnImagePickCompleteListener() {
+                    @Override
+                    public void onImagePickComplete(List<ImageItem> items) {
+                        if(items != null && items.size() > 0){
+                            Log.i(TAG,"=====选择了："+items.get(0).path);
+                            mAdapter.clear();
+                            mAdapter.addAll(items);
+                        }
+                    }
+                });
+                return;
             case R.id.btn_single_with_camera:
                 AndroidImagePicker.getInstance().setSelectMode(AndroidImagePicker.Select_Mode.MODE_SINGLE);
                 AndroidImagePicker.getInstance().setShouldShowCamera(true);
                 break;
             case R.id.btn_multi:
-                AndroidImagePicker.getInstance().setSelectMode(AndroidImagePicker.Select_Mode.MODE_MULTI);
+                /*AndroidImagePicker.getInstance().setSelectMode(AndroidImagePicker.Select_Mode.MODE_MULTI);
                 AndroidImagePicker.getInstance().setShouldShowCamera(false);
-                break;
+                break;*/
+                AndroidImagePicker.getInstance().pickMulti(MainActivity.this, true, new AndroidImagePicker.OnImagePickCompleteListener() {
+                    @Override
+                    public void onImagePickComplete(List<ImageItem> items) {
+                        if(items != null && items.size() > 0){
+                            Log.i(TAG,"=====选择了："+items.get(0).path);
+                            mAdapter.clear();
+                            mAdapter.addAll(items);
+                        }
+                    }
+                });
+                return;
             case R.id.btn_multi_with_camera:
                 AndroidImagePicker.getInstance().setSelectMode(AndroidImagePicker.Select_Mode.MODE_MULTI);
                 AndroidImagePicker.getInstance().setShouldShowCamera(true);

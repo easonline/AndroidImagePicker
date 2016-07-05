@@ -130,7 +130,7 @@ public class PickerActivity extends AppCompatActivity implements AndroidImagePic
             return true;
         }else if(id == R.id.action_settings){
             finish();
-            androidImagePicker.notifyOnImagePickComplete(androidImagePicker.getSelectedImages());
+            androidImagePicker.notifyOnImagePickComplete();
             return true;
         }
         return super.onOptionsItemSelected(item);
