@@ -45,16 +45,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pizidea.imagepicker.AndroidImagePicker;
-import com.pizidea.imagepicker.ImagePresenter;
-import com.pizidea.imagepicker.PicassoImagePresenter;
+import com.pizidea.imagepicker.ImgLoader;
+import com.pizidea.imagepicker.PicassoImgLoader;
 import com.pizidea.imagepicker.R;
-import com.pizidea.imagepicker.UilImagePresenter;
 import com.pizidea.imagepicker.Util;
 import com.pizidea.imagepicker.bean.ImageItem;
 import com.pizidea.imagepicker.bean.ImageSet;
 import com.pizidea.imagepicker.data.DataSource;
 import com.pizidea.imagepicker.data.OnImagesLoadedListener;
 import com.pizidea.imagepicker.data.impl.LocalDataSource;
+import com.pizidea.imagepicker.ui.activity.ImageCropActivity;
 import com.pizidea.imagepicker.widget.SuperCheckBox;
 
 import java.io.IOException;
@@ -66,7 +66,7 @@ import java.util.List;
  * Created by Eason.Lai on 2015/11/1 10:42 <br/>
  * contact：easonline7@gmail.com <br/>
  */
-public class ImagesGridFragment extends Fragment implements OnImagesLoadedListener,AndroidImagePicker.OnImageSelectedListener,AndroidImagePicker.OnImageCropCompleteListener{
+public class ImagesGridFragment extends Fragment implements OnImagesLoadedListener,AndroidImagePicker.OnImageSelectedChangeListener,AndroidImagePicker.OnImageCropCompleteListener{
     private static final String TAG = ImagesGridFragment.class.getSimpleName();
 
     Activity mContext;
@@ -81,7 +81,7 @@ public class ImagesGridFragment extends Fragment implements OnImagesLoadedListen
     private ImageSetAdapter mImageSetAdapter;
     List<ImageSet> mImageSetList;//data of all ImageSets
 
-    ImagePresenter mImagePresenter;
+    ImgLoader mImagePresenter;
     AndroidImagePicker androidImagePicker;
 
     private OnItemClickListener mOnItemClickListener;//Grid Item click Listener
@@ -97,7 +97,7 @@ public class ImagesGridFragment extends Fragment implements OnImagesLoadedListen
         androidImagePicker = AndroidImagePicker.getInstance();
         //androidImagePicker.clear();
 
-        androidImagePicker.addOnImageSelectedListener(this);
+        androidImagePicker.addOnImageSelectedChangeListener(this);
         androidImagePicker.addOnImageCropCompleteListener(this);
 
         //androidImagePicker.clearSelectedImages();
@@ -152,7 +152,7 @@ public class ImagesGridFragment extends Fragment implements OnImagesLoadedListen
             }
         }));//stop loading if fling or scrolling if using UIL*/
 
-        mImagePresenter = new PicassoImagePresenter();
+        mImagePresenter = new PicassoImgLoader();
 
         DataSource dataSource = new LocalDataSource(mContext);
         dataSource.provideMediaItems(this);//select all images from local database
@@ -194,9 +194,9 @@ public class ImagesGridFragment extends Fragment implements OnImagesLoadedListen
     }
 
     @Override
-    public void onImageSelected(int position, ImageItem item, int selectedItemsCount, int maxSelectLimit) {
+    public void onImageSelectChange(int position, ImageItem item, int selectedItemsCount, int maxSelectLimit) {
         mAdapter.refreshData(AndroidImagePicker.getInstance().getImageItemsOfCurrentImageSet());
-        Log.i(TAG,"=====EVENT:onImageSelected");
+        Log.i(TAG,"=====EVENT:onImageSelectChange");
     }
 
     @Override
@@ -549,10 +549,10 @@ public class ImagesGridFragment extends Fragment implements OnImagesLoadedListen
 
     @Override
     public void onDestroy() {
-        androidImagePicker.removeOnImageItemSelectedListener(this);
+        androidImagePicker.removeOnImageItemSelectedChangeListener(this);
         androidImagePicker.removeOnImageCropCompleteListener(this);
         //androidImagePicker.clear();
-        Log.i(TAG,"=====removeOnImageItemSelectedListener");
+        Log.i(TAG,"=====removeOnImageItemSelectedChangeListener");
         Log.i(TAG,"=====removeOnImageCropCompleteListener");
         super.onDestroy();
     }
@@ -565,7 +565,20 @@ public class ImagesGridFragment extends Fragment implements OnImagesLoadedListen
             if(!TextUtils.isEmpty(androidImagePicker.getCurrentPhotoPath())){
                 AndroidImagePicker.galleryAddPic(mContext,androidImagePicker.getCurrentPhotoPath() );
                 getActivity().finish();
-                androidImagePicker.notifyPictureTaken();
+                //androidImagePicker.notifyPictureTaken();
+
+                if(androidImagePicker.cropMode){//裁图模式
+                    Intent intent = new Intent();
+                    intent.setClass(mContext,ImageCropActivity.class);
+                    intent.putExtra(AndroidImagePicker.KEY_PIC_PATH,androidImagePicker.getCurrentPhotoPath());
+                    startActivityForResult(intent, AndroidImagePicker.REQ_CAMERA);
+                }else{
+                    ImageItem item = new ImageItem(androidImagePicker.getCurrentPhotoPath(),"",-1);
+                    androidImagePicker.clearSelectedImages();
+                    androidImagePicker.addSelectedImageItem(-1, item);
+                    androidImagePicker.notifyOnImagePickComplete();
+                }
+
             }else{
                 Log.i(TAG,"didn't save to your path");
             }

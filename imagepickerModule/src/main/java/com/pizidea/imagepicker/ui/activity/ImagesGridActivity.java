@@ -33,7 +33,7 @@ import com.pizidea.imagepicker.R;
 import com.pizidea.imagepicker.bean.ImageItem;
 import com.pizidea.imagepicker.ui.ImagesGridFragment;
 
-public class ImagesGridActivity extends FragmentActivity implements View.OnClickListener,AndroidImagePicker.OnImageSelectedListener {
+public class ImagesGridActivity extends FragmentActivity implements View.OnClickListener,AndroidImagePicker.OnImageSelectedChangeListener {
     private static final String TAG = ImagesGridActivity.class.getSimpleName();
 
     private TextView mBtnOk;
@@ -66,7 +66,8 @@ public class ImagesGridActivity extends FragmentActivity implements View.OnClick
             }
         });
 
-        final boolean isCrop = getIntent().getBooleanExtra("isCrop",false);
+        //final boolean isCrop = getIntent().getBooleanExtra("isCrop",false);
+        final boolean isCrop = androidImagePicker.cropMode;
         imagePath = getIntent().getStringExtra(AndroidImagePicker.KEY_PIC_PATH);
         mFragment = new ImagesGridFragment();
         /*Bundle data = new Bundle();
@@ -103,10 +104,10 @@ public class ImagesGridActivity extends FragmentActivity implements View.OnClick
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container, mFragment).commit();
 
-        androidImagePicker.addOnImageSelectedListener(this);
+        androidImagePicker.addOnImageSelectedChangeListener(this);
 
         int selectedCount = androidImagePicker.getSelectImageCount();
-        onImageSelected(0, null, selectedCount, androidImagePicker.getSelectLimit());
+        onImageSelectChange(0, null, selectedCount, androidImagePicker.getSelectLimit());
 
     }
 
@@ -149,7 +150,7 @@ public class ImagesGridActivity extends FragmentActivity implements View.OnClick
 
 
     @Override
-    public void onImageSelected(int position, ImageItem item, int selectedItemsCount, int maxSelectLimit) {
+    public void onImageSelectChange(int position, ImageItem item, int selectedItemsCount, int maxSelectLimit) {
         if(selectedItemsCount > 0){
             mBtnOk.setEnabled(true);
             //mBtnOk.setText("完成("+selectedItemsCount+"/"+maxSelectLimit+")");
@@ -158,13 +159,13 @@ public class ImagesGridActivity extends FragmentActivity implements View.OnClick
             mBtnOk.setText(getResources().getString(R.string.complete));
             mBtnOk.setEnabled(false);
         }
-        Log.i(TAG, "=====EVENT:onImageSelected");
+        Log.i(TAG, "=====EVENT:onImageSelectChange");
     }
 
     @Override
     protected void onDestroy() {
-        androidImagePicker.removeOnImageItemSelectedListener(this);
-        Log.i(TAG, "=====removeOnImageItemSelectedListener");
+        androidImagePicker.removeOnImageItemSelectedChangeListener(this);
+        Log.i(TAG, "=====removeOnImageItemSelectedChangeListener");
         super.onDestroy();
     }
 
@@ -180,6 +181,7 @@ public class ImagesGridActivity extends FragmentActivity implements View.OnClick
             }else if(requestCode == AndroidImagePicker.REQ_PREVIEW){
                 setResult(RESULT_OK);
                 finish();
+                androidImagePicker.notifyOnImagePickComplete();
             }
 
         }

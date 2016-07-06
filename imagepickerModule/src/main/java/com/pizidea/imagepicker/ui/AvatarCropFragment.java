@@ -35,9 +35,9 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.pizidea.imagepicker.AndroidImagePicker;
-import com.pizidea.imagepicker.ImagePresenter;
+import com.pizidea.imagepicker.ImgLoader;
 import com.pizidea.imagepicker.R;
-import com.pizidea.imagepicker.UilImagePresenter;
+import com.pizidea.imagepicker.UilImgLoader;
 import com.pizidea.imagepicker.Util;
 import com.pizidea.imagepicker.widget.AvatarRectView;
 import com.pizidea.imagepicker.widget.SuperImageView;
@@ -61,7 +61,7 @@ public class AvatarCropFragment extends Fragment{
 
     private String picPath;//the local image path in sdcard
 
-    ImagePresenter mImagePresenter;//interface to load image,you can implement it with your own code
+    ImgLoader mImagePresenter;//interface to load image,you can implement it with your own code
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,7 +84,7 @@ public class AvatarCropFragment extends Fragment{
         //get the image path from Arguments
         picPath = getArguments().getString(AndroidImagePicker.KEY_PIC_PATH);
 
-        mImagePresenter = new UilImagePresenter();
+        mImagePresenter = new UilImgLoader();
 
         if(TextUtils.isEmpty(picPath)){
             throw new RuntimeException("AndroidImagePicker:you have to give me an image path from sdcard");

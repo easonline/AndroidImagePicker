@@ -21,7 +21,6 @@ package com.pizidea.imagepicker;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.nostra13.universalimageloader.core.download.ImageDownloader;
 
 import java.io.File;
 
@@ -30,7 +29,7 @@ import java.io.File;
  * Created by Eason.Lai on 2015/11/1 10:42 <br/>
  * contact：easonline7@gmail.com <br/>
  */
-public class GlideImagePresenter implements ImagePresenter{
+public class GlideImgLoader implements ImgLoader {
     @Override
     public void onPresentImage(ImageView imageView, String imageUri, int size) {
         Glide.with(imageView.getContext())

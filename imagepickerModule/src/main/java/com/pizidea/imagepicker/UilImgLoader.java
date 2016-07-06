@@ -29,7 +29,7 @@ import com.nostra13.universalimageloader.core.download.ImageDownloader;
  * Created by Eason.Lai on 2015/11/1 10:42 <br/>
  * contact：easonline7@gmail.com <br/>
  */
-public class UilImagePresenter implements ImagePresenter{
+public class UilImgLoader implements ImgLoader {
     @Override
     public void onPresentImage(ImageView imageView, String imageUri, int size) {
         ImageDownloader.Scheme scheme = ImageDownloader.Scheme.FILE;

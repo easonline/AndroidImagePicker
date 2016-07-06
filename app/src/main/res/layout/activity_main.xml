@@ -31,7 +31,9 @@
         android:gravity="center"
         android:text="单选带相机"
         android:textColor="@color/white"
-        android:textSize="18dp" />
+        android:textSize="18dp"
+        android:visibility="gone"
+        />
 
 </LinearLayout>
 
@@ -63,6 +65,7 @@
             android:gravity="center"
             android:text="多选带相机"
             android:textColor="@color/white"
+            android:visibility="gone"
             android:textSize="18dp" />
 
         </LinearLayout>
@@ -75,20 +78,18 @@
         android:background="@drawable/sel_top_ok"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="单选并裁剪"
+        android:text="裁剪头像"
         android:textColor="@color/white"
         android:textSize="18dp" />
 
-    <TextView
-        android:id="@+id/btn_custom"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@drawable/sel_top_ok"
+    <CheckBox android:id="@+id/cb_show_camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:padding="8dp"
         android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="自定义主题"
-        android:textColor="@color/white"
-        android:textSize="18dp" />
+        android:text="是否显示拍照按钮"
+        />
 
 
     <!--<ImageView android:id="@+id/iv_show"

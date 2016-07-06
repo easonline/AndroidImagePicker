@@ -35,9 +35,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.pizidea.imagepicker.AndroidImagePicker;
-import com.pizidea.imagepicker.ImagePresenter;
+import com.pizidea.imagepicker.ImgLoader;
 import com.pizidea.imagepicker.R;
-import com.pizidea.imagepicker.UilImagePresenter;
+import com.pizidea.imagepicker.UilImgLoader;
 import com.pizidea.imagepicker.bean.ImageItem;
 import com.pizidea.imagepicker.widget.TouchImageView;
 
@@ -61,7 +61,7 @@ public class ImagePreviewFragment extends Fragment{
 
     private boolean enableSingleTap = true;//singleTap to do something
 
-    ImagePresenter mImagePresenter;//interface to load image,you can implements it with your own code
+    ImgLoader mImagePresenter;//interface to load image,you can implements it with your own code
     AndroidImagePicker androidImagePicker;
 
     @Override
@@ -79,7 +79,7 @@ public class ImagePreviewFragment extends Fragment{
         View contentView = inflater.inflate(R.layout.fragment_preview,null);
         mImageList = androidImagePicker.getImageItemsOfCurrentImageSet();
         mCurrentItemPosition = getArguments().getInt(AndroidImagePicker.KEY_PIC_SELECTED_POSITION,0);
-        mImagePresenter = new UilImagePresenter();
+        mImagePresenter = new UilImgLoader();
         initView(contentView);
         return contentView;
     }
@@ -197,7 +197,7 @@ public class ImagePreviewFragment extends Fragment{
 
             });
 
-            ((UilImagePresenter)mImagePresenter).onPresentImage2(imageView, url, imageView.getWidth());//display the image with your own ImageLoader
+            ((UilImgLoader)mImagePresenter).onPresentImage2(imageView, url, imageView.getWidth());//display the image with your own ImageLoader
 
         }
 

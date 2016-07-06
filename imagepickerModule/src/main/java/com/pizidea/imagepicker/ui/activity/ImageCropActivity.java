@@ -70,7 +70,7 @@ public class ImageCropActivity extends FragmentActivity implements View.OnClickL
     public void onClick(View v) {
 
         if(v.getId() == R.id.btn_pic_ok){
-            Bitmap bmp = mFragment.getCropBitmap(60*2);
+            Bitmap bmp = mFragment.getCropBitmap(AndroidImagePicker.getInstance().cropSize);
             finish();
             AndroidImagePicker.getInstance().notifyImageCropComplete(bmp,0);
         }else if(v.getId() == R.id.btn_pic_rechoose){

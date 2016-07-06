@@ -37,7 +37,7 @@ import com.pizidea.imagepicker.ui.ImagePreviewFragment;
 import java.io.Serializable;
 import java.util.List;
 
-public class ImagePreviewActivity extends FragmentActivity implements View.OnClickListener,ImagePreviewFragment.OnImageSingleTapClickListener,ImagePreviewFragment.OnImagePageSelectedListener,AndroidImagePicker.OnImageSelectedListener {
+public class ImagePreviewActivity extends FragmentActivity implements View.OnClickListener,ImagePreviewFragment.OnImageSingleTapClickListener,ImagePreviewFragment.OnImagePageSelectedListener,AndroidImagePicker.OnImageSelectedChangeListener {
     private static final String TAG = ImagePreviewActivity.class.getSimpleName();
 
     ImagePreviewFragment mFragment;
@@ -55,7 +55,7 @@ public class ImagePreviewActivity extends FragmentActivity implements View.OnCli
         setContentView(R.layout.activity_image_pre);
 
         androidImagePicker = AndroidImagePicker.getInstance();
-        androidImagePicker.addOnImageSelectedListener(this);
+        androidImagePicker.addOnImageSelectedChangeListener(this);
 
         mImageList = AndroidImagePicker.getInstance().getImageItemsOfCurrentImageSet();
         mShowItemPosition = getIntent().getIntExtra(AndroidImagePicker.KEY_PIC_SELECTED_POSITION,0);
@@ -69,7 +69,7 @@ public class ImagePreviewActivity extends FragmentActivity implements View.OnCli
 
         int selectedCount = AndroidImagePicker.getInstance().getSelectImageCount();
 
-        onImageSelected(0, null, selectedCount, androidImagePicker.getSelectLimit());
+        onImageSelectChange(0, null, selectedCount, androidImagePicker.getSelectLimit());
 
         //back press
         findViewById(R.id.btn_backpress).setOnClickListener(new View.OnClickListener() {
@@ -120,7 +120,7 @@ public class ImagePreviewActivity extends FragmentActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.btn_pic_ok){
+        if(v.getId() == R.id.btn_ok){
             setResult(RESULT_OK);// select complete
             finish();
         }else if(v.getId() == R.id.btn_pic_rechoose){
@@ -167,7 +167,7 @@ public class ImagePreviewActivity extends FragmentActivity implements View.OnCli
     }
 
     @Override
-    public void onImageSelected(int position, ImageItem item, int selectedItemsCount, int maxSelectLimit) {
+    public void onImageSelectChange(int position, ImageItem item, int selectedItemsCount, int maxSelectLimit) {
         if(selectedItemsCount > 0){
             mBtnOk.setEnabled(true);
             mBtnOk.setText(getResources().getString(R.string.select_complete,selectedItemsCount,maxSelectLimit));
@@ -175,13 +175,13 @@ public class ImagePreviewActivity extends FragmentActivity implements View.OnCli
             mBtnOk.setText(getResources().getString(R.string.complete));
             mBtnOk.setEnabled(false);
         }
-        Log.i(TAG, "=====EVENT:onImageSelected");
+        Log.i(TAG, "=====EVENT:onImageSelectChange");
     }
 
     @Override
     protected void onDestroy() {
-        androidImagePicker.removeOnImageItemSelectedListener(this);
-        Log.i(TAG, "=====removeOnImageItemSelectedListener");
+        androidImagePicker.removeOnImageItemSelectedChangeListener(this);
+        Log.i(TAG, "=====removeOnImageItemSelectedChangeListener");
         super.onDestroy();
     }
 

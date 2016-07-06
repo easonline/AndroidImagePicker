@@ -17,15 +17,29 @@
  */
 
 package com.pizidea.imagepicker;
-
 import android.widget.ImageView;
+import com.squareup.picasso.Picasso;
+import java.io.File;
 
 /**
- * <b>interface for image showing</b><br/>
- * you can implements it with UIL,picasso or glide <br/>
+ * <b>desc your class</b><br/>
  * Created by Eason.Lai on 2015/11/1 10:42 <br/>
  * contact：easonline7@gmail.com <br/>
  */
-public interface ImagePresenter {
-    void onPresentImage(ImageView imageView, String imageUri, int size);
+public class PicassoImgLoader implements ImgLoader {
+    @Override
+    public void onPresentImage(ImageView imageView, String imageUri, int size) {
+        Picasso.with(imageView.getContext())
+                .load(new File(imageUri))
+                .centerCrop()
+                //.dontAnimate()
+                //.thumbnail(0.5f)
+                //.override(size, size)
+                .resize(size/4*3, size/4*3)
+                .placeholder(R.drawable.default_img)
+                //.error(R.drawable.default_img)
+                .into(imageView);
+
+    }
+
 }

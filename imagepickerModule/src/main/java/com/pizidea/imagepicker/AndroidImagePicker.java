@@ -59,6 +59,9 @@ public class AndroidImagePicker {
     public static final String KEY_PIC_PATH = "key_pic_path";
     public static final String KEY_PIC_SELECTED_POSITION = "key_pic_selected";
 
+    public boolean cropMode = false;
+    public int cropSize = 60*2;
+
     private static AndroidImagePicker mInstance;
     public static AndroidImagePicker getInstance(){
         if(mInstance == null){
@@ -83,7 +86,7 @@ public class AndroidImagePicker {
     public int getSelectMode() {
         return selectMode;
     }
-    public void setSelectMode(int selectMode) {
+    private void setSelectMode(int selectMode) {
         this.selectMode = selectMode;
     }
 
@@ -91,7 +94,7 @@ public class AndroidImagePicker {
     public boolean isShouldShowCamera() {
         return shouldShowCamera;
     }
-    public void setShouldShowCamera(boolean shouldShowCamera) {
+    private void setShouldShowCamera(boolean shouldShowCamera) {
         this.shouldShowCamera = shouldShowCamera;
     }
 
@@ -103,33 +106,33 @@ public class AndroidImagePicker {
     /**
      * Listeners of image selected changes,if you want to custom the Activity of ImagesGrid or ImagePreview,you might use it.
      */
-    private List<OnImageSelectedListener> mImageSelectedListeners;
-    public void addOnImageSelectedListener(OnImageSelectedListener l){
-        if(mImageSelectedListeners == null){
-            mImageSelectedListeners = new ArrayList<>();
+    private List<OnImageSelectedChangeListener> mImageSelectedChangeListeners;
+    public void addOnImageSelectedChangeListener(OnImageSelectedChangeListener l){
+        if(mImageSelectedChangeListeners == null){
+            mImageSelectedChangeListeners = new ArrayList<>();
             Log.i(TAG, "=====create new ImageSelectedListener List");
         }
-        this.mImageSelectedListeners.add(l);
-        Log.i(TAG, "=====addOnImageSelectedListener:" + l.getClass().toString());
+        this.mImageSelectedChangeListeners.add(l);
+        Log.i(TAG, "=====addOnImageSelectedChangeListener:" + l.getClass().toString());
     }
-    public void removeOnImageItemSelectedListener(OnImageSelectedListener l){
-        if(mImageSelectedListeners == null){
+    public void removeOnImageItemSelectedChangeListener(OnImageSelectedChangeListener l){
+        if(mImageSelectedChangeListeners == null){
             return;
         }
-        this.mImageSelectedListeners.remove(l);
-        Log.i(TAG, "=====remove from mImageSelectedListeners:" + l.getClass().toString());
+        this.mImageSelectedChangeListeners.remove(l);
+        Log.i(TAG, "=====remove from mImageSelectedChangeListeners:" + l.getClass().toString());
     }
     private void notifyImageSelectedChanged(int position,ImageItem item,boolean isAdd){
         if( (isAdd && getSelectImageCount() > selectLimit) || (!isAdd && getSelectImageCount() == selectLimit) ){
             //do not call the listeners if reached the select limit when selecting
             Log.i(TAG, "=====ignore notifyImageSelectedChanged:isAdd?"+isAdd);
         }else{
-            if(mImageSelectedListeners == null){
+            if(mImageSelectedChangeListeners == null){
                 return;
             }
-            Log.i(TAG,"=====notify mImageSelectedListeners:item="+item.path);
-            for(OnImageSelectedListener l : mImageSelectedListeners){
-                l.onImageSelected(position,item, mSelectedImages.size(), selectLimit);
+            Log.i(TAG,"=====notify mImageSelectedChangeListeners:item="+item.path);
+            for(OnImageSelectedChangeListener l : mImageSelectedChangeListeners){
+                l.onImageSelectChange(position,item, mSelectedImages.size(), selectLimit);
             }
         }
     }
@@ -162,29 +165,6 @@ public class AndroidImagePicker {
         }
     }
 
-    /**
-     * listener of picture taken
-     */
-    private OnPictureTakeCompleteListener mOnPictureTakeCompleteListener;
-    public void setOnPictureTakeCompleteListener(OnPictureTakeCompleteListener l){
-        this.mOnPictureTakeCompleteListener = l;
-        Log.i(TAG, "=====setOnPictureTakeCompleteListener:" + l.getClass().toString());
-    }
-    public void deleteOnPictureTakeCompleteListener(OnPictureTakeCompleteListener l){
-        if(l.getClass().getName().equals(mOnPictureTakeCompleteListener.getClass().getName())){
-            this.mOnPictureTakeCompleteListener = null;
-            Log.i(TAG, "=====remove mOnPictureTakeCompleteListener:" + l.getClass().toString());
-            System.gc();
-        }
-    }
-    public void notifyPictureTaken() {
-        if(mOnPictureTakeCompleteListener != null){
-            mOnPictureTakeCompleteListener.onPictureTakeComplete(mCurrentPhotoPath);
-            Log.i(TAG,"=====notify mOnPictureTakeCompleteListener path="+mCurrentPhotoPath);
-        }
-        mOnPictureTakeCompleteListener = null;
-    }
-
 
     /**
      * Listener when image pick completed
@@ -213,7 +193,7 @@ public class AndroidImagePicker {
     private List<ImageSet> mImageSets;
     private int mCurrentSelectedImageSetPosition = 0;//Item 0: all images
 
-    Set<ImageItem> mSelectedImages = new LinkedHashSet<>();;
+    Set<ImageItem> mSelectedImages = new LinkedHashSet<>();
     public List<ImageSet> getImageSets() {
         return mImageSets;
     }
@@ -236,7 +216,6 @@ public class AndroidImagePicker {
 
 
     public void addSelectedImageItem(int position,ImageItem item){
-        //mSelectedImages.put(position, item);
         mSelectedImages.add(item);
         Log.i(TAG,"=====select:"+item.path);
         notifyImageSelectedChanged(position, item,true);
@@ -249,10 +228,7 @@ public class AndroidImagePicker {
     }
 
     public boolean isSelect(int position,ImageItem item){
-        if(mSelectedImages.contains(item)){
-            return true;
-        }
-        return false;
+        return mSelectedImages.contains(item);
     }
 
     public int getSelectImageCount(){
@@ -263,9 +239,9 @@ public class AndroidImagePicker {
     }
 
     public void clear(){
-        if(mImageSelectedListeners != null){
-            mImageSelectedListeners.clear();
-            mImageSelectedListeners = null;
+        if(mImageSelectedChangeListeners != null){
+            mImageSelectedChangeListeners.clear();
+            mImageSelectedChangeListeners = null;
         }
         if(mImageCropCompleteListeners != null){
             mImageCropCompleteListeners.clear();
@@ -438,17 +414,12 @@ public class AndroidImagePicker {
     /**
      * listener for one Image Item selected observe
      */
-    public interface OnImageSelectedListener{
-        void onImageSelected(int position,ImageItem item,int selectedItemsCount,int maxSelectLimit);
+    public interface OnImageSelectedChangeListener {
+        void onImageSelectChange(int position, ImageItem item, int selectedItemsCount, int maxSelectLimit);
     }
-
 
     public interface OnImageCropCompleteListener{
         void onImageCropComplete(Bitmap bmp,float ratio);
-    }
-
-    public interface OnPictureTakeCompleteListener{
-        void onPictureTakeComplete(String picturePath);
     }
 
     public interface OnImagePickCompleteListener{
@@ -472,7 +443,7 @@ public class AndroidImagePicker {
         setSelectMode(Select_Mode.MODE_SINGLE);
         setShouldShowCamera(showCamera);
         setOnImagePickCompleteListener(l);
-
+        cropMode = false;
         act.startActivity(new Intent(act, ImagesGridActivity.class));
     }
 
@@ -488,6 +459,24 @@ public class AndroidImagePicker {
         setSelectMode(Select_Mode.MODE_MULTI);
         setShouldShowCamera(showCamera);
         setOnImagePickCompleteListener(l);
+        cropMode = false;
+        act.startActivity(new Intent(act, ImagesGridActivity.class));
+    }
+
+
+    /**
+     * 单选并裁剪头像
+     * @param act
+     * @param showCamera
+     * @param cropSize
+     * @param l
+     */
+    public void pickAndCrop(Activity act,boolean showCamera,int cropSize,OnImageCropCompleteListener l){
+        setSelectMode(Select_Mode.MODE_SINGLE);
+        setShouldShowCamera(showCamera);
+        addOnImageCropCompleteListener(l);
+        cropMode = true;
+        this.cropSize = cropSize;
 
         act.startActivity(new Intent(act, ImagesGridActivity.class));
     }
