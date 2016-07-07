@@ -152,6 +152,7 @@ public class ImagesGridActivity extends FragmentActivity implements View.OnClick
     @Override
     protected void onDestroy() {
         androidImagePicker.removeOnImageItemSelectedChangeListener(this);
+        androidImagePicker.clearImageSets();
         Log.i(TAG, "=====removeOnImageItemSelectedChangeListener");
         super.onDestroy();
     }

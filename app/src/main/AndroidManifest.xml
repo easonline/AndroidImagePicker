@@ -44,30 +44,6 @@
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
 
-        <activity
-            android:name="com.pizidea.imagepickerDemo2.PickerActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
-
-        </activity>
-
-        <activity
-            android:name="com.pizidea.imagepickerDemo2.CropActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-
-        <activity
-            android:name="com.pizidea.imagepickerDemo2.PreviewActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-
-        <activity
-            android:name="com.pizidea.imagepickerDemo2.ShowActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
 
     </application>
 

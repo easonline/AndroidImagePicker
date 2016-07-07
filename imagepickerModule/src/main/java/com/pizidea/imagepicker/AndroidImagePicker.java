@@ -199,11 +199,22 @@ public class AndroidImagePicker {
     }
 
     public List<ImageItem> getImageItemsOfCurrentImageSet(){
-        return mImageSets.get(mCurrentSelectedImageSetPosition).imageItems;
+        if(mImageSets != null){
+            return mImageSets.get(mCurrentSelectedImageSetPosition).imageItems;
+        }else{
+            return null;
+        }
     }
 
     public void setImageSets(List<ImageSet> mImageSets) {
         this.mImageSets = mImageSets;
+    }
+
+    public void clearImageSets(){
+        if(mImageSets != null){
+            mImageSets.clear();
+            mImageSets = null;
+        }
     }
 
     public int getCurrentSelectedImageSetPosition() {
@@ -238,7 +249,7 @@ public class AndroidImagePicker {
         return mSelectedImages.size();
     }
 
-    public void clear(){
+    public void onDestroy(){
         if(mImageSelectedChangeListeners != null){
             mImageSelectedChangeListeners.clear();
             mImageSelectedChangeListeners = null;
@@ -251,10 +262,7 @@ public class AndroidImagePicker {
         //mSelectedImages.clear();
         //mSelectedImages = null;
 
-        if(mImageSets != null){
-            mImageSets.clear();
-            mImageSets = null;
-        }
+        clearImageSets();
 
         mCurrentSelectedImageSetPosition = 0;
 

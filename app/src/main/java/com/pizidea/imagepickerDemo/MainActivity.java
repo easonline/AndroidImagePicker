@@ -221,7 +221,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     protected void onDestroy() {
         //AndroidImagePicker.getInstance().deleteOnPictureTakeCompleteListener(this);
-
+        AndroidImagePicker.getInstance().onDestroy();
         super.onDestroy();
     }
 }
