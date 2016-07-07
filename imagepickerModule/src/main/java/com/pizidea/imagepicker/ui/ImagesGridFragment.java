@@ -98,7 +98,10 @@ public class ImagesGridFragment extends Fragment implements OnImagesLoadedListen
         //androidImagePicker.clear();
 
         androidImagePicker.addOnImageSelectedChangeListener(this);
-        androidImagePicker.addOnImageCropCompleteListener(this);
+
+        if(androidImagePicker.cropMode){
+            androidImagePicker.addOnImageCropCompleteListener(this);
+        }
 
         //androidImagePicker.clearSelectedImages();
 
@@ -550,10 +553,9 @@ public class ImagesGridFragment extends Fragment implements OnImagesLoadedListen
     @Override
     public void onDestroy() {
         androidImagePicker.removeOnImageItemSelectedChangeListener(this);
-        androidImagePicker.removeOnImageCropCompleteListener(this);
-        //androidImagePicker.clear();
-        Log.i(TAG,"=====removeOnImageItemSelectedChangeListener");
-        Log.i(TAG,"=====removeOnImageCropCompleteListener");
+        if (androidImagePicker.cropMode) {
+            androidImagePicker.removeOnImageCropCompleteListener(this);
+        }
         super.onDestroy();
     }
 

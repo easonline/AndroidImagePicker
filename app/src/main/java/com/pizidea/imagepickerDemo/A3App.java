@@ -61,7 +61,7 @@ public class A3App extends Application {
 						//.imageDownloader(new BaseImageDownloader(A3App.getInstance().getApplicationContext()))
 						//.imageDecoder(new BaseImageDecoder(true))
 						//.defaultDisplayImageOptions(DisplayImageOptions.createSimple())
-						.writeDebugLogs()
+						//.writeDebugLogs()
 						.build();
 			}else{
 				config = new ImageLoaderConfiguration.Builder(context)

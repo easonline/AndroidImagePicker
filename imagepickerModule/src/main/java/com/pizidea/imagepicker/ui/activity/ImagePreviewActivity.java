@@ -127,17 +127,6 @@ public class ImagePreviewActivity extends FragmentActivity implements View.OnCli
             finish();
         }
 
-       /* switch (v.getId()){
-            case R.id.btn_pic_rechoose:
-                finish();
-                break;
-            case R.id.btn_ok:
-                setResult(RESULT_OK);// select complete
-                finish();
-                break;
-            default:
-                break;
-        }*/
 
     }
 

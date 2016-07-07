@@ -87,7 +87,7 @@ public class ImagesGridActivity extends FragmentActivity implements View.OnClick
                         Intent intent = new Intent();
                         intent.setClass(ImagesGridActivity.this,ImageCropActivity.class);
                         intent.putExtra(AndroidImagePicker.KEY_PIC_PATH,androidImagePicker.getImageItemsOfCurrentImageSet().get(position).path);
-                        startActivityForResult(intent, AndroidImagePicker.REQ_CAMERA);
+                        startActivity(intent);
                     }else{
                         androidImagePicker.clearSelectedImages();
                         androidImagePicker.addSelectedImageItem(position, androidImagePicker.getImageItemsOfCurrentImageSet().get(position));
@@ -133,19 +133,6 @@ public class ImagesGridActivity extends FragmentActivity implements View.OnClick
             finish();
         }
 
-       /* switch (v.getId()){
-            case R.id.btn_pic_rechoose:
-                finish();
-                break;
-            case R.id.btn_ok:
-                finish();
-                androidImagePicker.notifyOnImagePickComplete(androidImagePicker.getSelectedImages());
-                //setResult(RESULT_OK);
-                break;
-            default:
-                break;
-        }*/
-
     }
 
 
@@ -175,10 +162,7 @@ public class ImagesGridActivity extends FragmentActivity implements View.OnClick
 
         if(resultCode == Activity.RESULT_OK){
 
-            if(requestCode == AndroidImagePicker.REQ_CAMERA){
-                Bitmap bmp = (Bitmap)data.getExtras().get("bitmap");
-                Log.i(TAG,"=====get Bitmap:"+bmp.hashCode());
-            }else if(requestCode == AndroidImagePicker.REQ_PREVIEW){
+           if(requestCode == AndroidImagePicker.REQ_PREVIEW){
                 setResult(RESULT_OK);
                 finish();
                 androidImagePicker.notifyOnImagePickComplete();

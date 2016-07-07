@@ -119,8 +119,8 @@ public class AndroidImagePicker {
         if(mImageSelectedChangeListeners == null){
             return;
         }
-        this.mImageSelectedChangeListeners.remove(l);
         Log.i(TAG, "=====remove from mImageSelectedChangeListeners:" + l.getClass().toString());
+        this.mImageSelectedChangeListeners.remove(l);
     }
     private void notifyImageSelectedChanged(int position,ImageItem item,boolean isAdd){
         if( (isAdd && getSelectImageCount() > selectLimit) || (!isAdd && getSelectImageCount() == selectLimit) ){
@@ -184,8 +184,8 @@ public class AndroidImagePicker {
     public void notifyOnImagePickComplete(){
         if(mOnImagePickCompleteListener != null){
             List<ImageItem> list = getSelectedImages();
-            mOnImagePickCompleteListener.onImagePickComplete(list);
             Log.i(TAG, "=====notify mOnImagePickCompleteListener:selected size=" + list.size());
+            mOnImagePickCompleteListener.onImagePickComplete(list);
         }
     }
 
@@ -217,13 +217,13 @@ public class AndroidImagePicker {
 
     public void addSelectedImageItem(int position,ImageItem item){
         mSelectedImages.add(item);
-        Log.i(TAG,"=====select:"+item.path);
+        Log.i(TAG,"=====addSelectedImageItem:"+item.path);
         notifyImageSelectedChanged(position, item,true);
     }
 
     public void deleteSelectedImageItem(int position,ImageItem item){
         mSelectedImages.remove(item);
-        Log.i(TAG, "=====cancel select:" + item.path);
+        Log.i(TAG, "=====deleteSelectedImageItem:" + item.path);
         notifyImageSelectedChanged(position,item,false);
     }
 
@@ -355,22 +355,20 @@ public class AndroidImagePicker {
     /**
      * take picture
      */
-    public void takePicture(Context ctx,int requestCode) throws IOException {
+    public void takePicture(Activity act,int requestCode) throws IOException {
 
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(ctx.getPackageManager()) != null) {
+        if (takePictureIntent.resolveActivity(act.getPackageManager()) != null) {
             // Create the File where the photo should go
             //File photoFile = createImageFile();
-            File photoFile = createImageSaveFile(ctx);
+            File photoFile = createImageSaveFile(act);
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(photoFile));
             }
         }
-        if(ctx instanceof Activity){
-            ((Activity)ctx).startActivityForResult(takePictureIntent, requestCode);
-        }
+        act.startActivityForResult(takePictureIntent, requestCode);
 
     }
 

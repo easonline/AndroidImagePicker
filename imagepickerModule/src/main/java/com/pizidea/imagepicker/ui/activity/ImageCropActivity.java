@@ -77,27 +77,6 @@ public class ImageCropActivity extends FragmentActivity implements View.OnClickL
             finish();
         }
 
-        /*switch (v.getId()){
-            case R.id.btn_pic_rechoose:
-                finish();
-                break;
-            case R.id.btn_pic_ok:
-                //
-                Bitmap bmp = mFragment.getCropBitmap(60*2);
-                finish();
-                AndroidImagePicker.getInstance().notifyImageCropComplete(bmp,0);
-                *//*ivShow.setVisibility(View.VISIBLE);
-                ivShow.setImageBitmap(bmp);
-                Intent data = new Intent();
-                data.putExtra("bitmap",bmp);
-                setResult(RESULT_OK, data);
-                finish();*//*
-
-                break;
-            default:
-                break;
-        }*/
-
     }
 
 
